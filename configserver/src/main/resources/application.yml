@@ -14,3 +14,4 @@ spring:
           uri: ${GIT_URL}
           username: ${GIT_CREDENTIALS_USERNAME}
           password: ${GIT_CREDENTIALS_PASSWORD}
+          searchPaths: "*"
