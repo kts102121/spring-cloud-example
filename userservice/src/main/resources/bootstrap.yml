@@ -5,5 +5,11 @@ spring:
     active:
       default
   cloud:
+    consul:
+      host: ${CONSUL_URL:localhost}
+      port: ${CONSUL_PORT:8500}
     config:
       enabled: true
+      uri: ${CONFIG_URL:localhost:8888}
+encrypt:
+  key: ${ENCRYPT_KEY}

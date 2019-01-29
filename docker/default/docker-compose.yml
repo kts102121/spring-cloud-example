@@ -15,6 +15,8 @@ services:
     command: "agent -server -bootstrap -ui -data-dir=/tmp/consul -client=0.0.0.0 -bind='{{ GetInterfaceIP \"eth0\" }}'"
   configserver:
     image: ron/config-server:1.0-SNAPSHOT
+    ports:
+      - "8888:8888"
     environment:
       - GIT_URL=${GIT_URL}
       - GIT_CREDENTIALS_USERNAME=${GIT_CREDENTIALS_USERNAME}
@@ -22,5 +24,17 @@ services:
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
+    links:
+      - consulserver:consulserver
+  userservice:
+    image: ron/userservice:1.0-SNAPSHOT
+    ports:
+      - "8085:8085"
+    environment:
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+      - CONSUL_URL=${CONSUL_URL}
+      - CONSUL_PORT=${CONSUL_PORT}
+      - SERVER_PORT=8085
+      - CONFIG_URL=${CONFIG_URL}
     links:
       - consulserver:consulserver
