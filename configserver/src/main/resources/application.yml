@@ -1,0 +1,16 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    consul:
+      host: ${CONSUL_URL:localhost}
+      port: ${CONSUL_PORT:8500}
+    config:
+      discovery:
+        enabled: true
+      server:
+        encrypt.enabled: false
+        git:
+          uri: ${GIT_URL}
+          username: ${GIT_CREDENTIALS_USERNAME}
+          password: ${GIT_CREDENTIALS_PASSWORD}
