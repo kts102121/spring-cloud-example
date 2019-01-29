@@ -38,3 +38,4 @@ services:
       - CONFIG_URL=${CONFIG_URL}
     links:
       - consulserver:consulserver
+      - configserver:configserver
