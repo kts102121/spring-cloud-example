@@ -11,6 +11,14 @@ services:
       - "8500:8500"
       - "8600:53/udp"
     command: "agent -server -bootstrap -ui -client=0.0.0.0 -bind='{{ GetInterfaceIP \"eth0\" }}'"
+  database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
   configserver:
     image: ron/config-server:1.0-SNAPSHOT
     ports:
@@ -34,6 +42,7 @@ services:
       - SERVER_PORT=8085
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
+      - DB_PORT=${DB_PORT}
   inventoryservice:
     image: ron/inventoryservice:1.0-SNAPSHOT
     ports:
@@ -46,3 +55,4 @@ services:
       - SERVER_PORT=8086
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
+      - DB_PORT=${DB_PORT}

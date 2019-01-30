@@ -11,6 +11,12 @@ while ! `nc -z consulserver $CONSUL_PORT`; do sleep 3; done
 echo "******* Consul Server has started"
 
 echo "********************************************************"
+echo "Waiting for the database server to start on port $DB_PORT"
+echo "********************************************************"
+while ! `nc -z database $DB_PORT`; do sleep 3; done
+echo "******** Database Server has started "
+
+echo "********************************************************"
 echo "Waiting for the configuration server to start on port $CONFIG_PORT"
 echo "********************************************************"
 while ! `nc -z configserver $CONFIG_PORT`; do sleep 3; done
