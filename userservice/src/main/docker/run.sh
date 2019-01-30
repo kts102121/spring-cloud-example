@@ -17,6 +17,10 @@ while ! `nc -z configserver $CONFIG_PORT`; do sleep 3; done
 echo "*******  Configuration Server has started"
 
 echo "********************************************************"
-echo "Starting Organization Service  "
+echo "Starting User Service  "
 echo "********************************************************"
-java -cp app:app/lib/* -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT -Dspring.cloud.config.uri=$CONFIG_URL org.ron.userservice.UserServiceApplication
+java -cp app:app/lib/* -Djava.security.egd=file:/dev/./urandom \
+     -Dserver.port=$SERVER_PORT \
+     -Dspring.cloud.config.uri=$CONFIG_URL \
+     -Dspring.profiles.active=$PROFILE \
+     org.ron.userservice.UserServiceApplication

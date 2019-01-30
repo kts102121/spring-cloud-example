@@ -17,6 +17,7 @@
     <modules>
         <module>configserver</module>
         <module>userservice</module>
+        <module>inventoryservice</module>
     </modules>
 
     <build>

@@ -6,6 +6,9 @@ spring:
       default
   cloud:
     consul:
+      discovery:
+        instance-id: ${spring.application.name}
+        prefer-ip-address: true
       host: ${CONSUL_URL:localhost}
       port: ${CONSUL_PORT:8500}
     config:
