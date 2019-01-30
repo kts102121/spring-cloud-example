@@ -36,6 +36,7 @@ services:
       - CONSUL_PORT=${CONSUL_PORT}
       - SERVER_PORT=8085
       - CONFIG_URL=${CONFIG_URL}
+      - CONFIG_PORT=${CONFIG_PORT}
     links:
       - consulserver:consulserver
       - configserver:configserver
