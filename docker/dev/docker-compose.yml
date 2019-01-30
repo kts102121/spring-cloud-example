@@ -24,8 +24,6 @@ services:
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
-    links:
-      - consulserver:consulserver
   userservice:
     image: ron/userservice:1.0-SNAPSHOT
     ports:
@@ -38,9 +36,6 @@ services:
       - SERVER_PORT=8085
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
-    links:
-      - consulserver:consulserver
-      - configserver:configserver
   inventoryservice:
     image: ron/inventoryservice:1.0-SNAPSHOT
     ports:
@@ -53,6 +48,3 @@ services:
       - SERVER_PORT=8086
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
-    links:
-      - consulserver:consulserver
-      - configserver:configserver

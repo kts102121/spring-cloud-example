@@ -10,8 +10,6 @@ services:
       - "8400:8400"
       - "8500:8500"
       - "8600:53/udp"
-    volumes:
-      - /tmp/consul:/tmp/consul
     command: "agent -server -bootstrap -ui -client=0.0.0.0 -bind='{{ GetInterfaceIP \"eth0\" }}'"
   configserver:
     image: ron/config-server:1.0-SNAPSHOT
@@ -24,8 +22,6 @@ services:
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
-    links:
-      - consulserver:consulserver
   userservice:
     image: ron/userservice:1.0-SNAPSHOT
     ports:
@@ -38,9 +34,6 @@ services:
       - SERVER_PORT=8085
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
-    links:
-      - consulserver:consulserver
-      - configserver:configserver
   inventoryservice:
     image: ron/inventoryservice:1.0-SNAPSHOT
     ports:
@@ -53,6 +46,3 @@ services:
       - SERVER_PORT=8086
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
-    links:
-      - consulserver:consulserver
-      - configserver:configserver
