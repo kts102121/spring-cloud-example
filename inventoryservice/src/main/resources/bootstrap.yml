@@ -14,5 +14,12 @@ spring:
     config:
       enabled: true
       uri: ${CONFIG_URL:localhost:8888}
+      fail-fast: true
+      retry:
+        initial-interval: 3000
+        multiplier: 1.3
+        max-interval: 5000
+        max-attempts: 5
+
 encrypt:
   key: ${ENCRYPT_KEY}
