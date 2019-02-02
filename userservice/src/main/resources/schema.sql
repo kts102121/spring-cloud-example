@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL
+    user_id SERIAL PRIMARY KEY,
+    user_name TEXT NOT NULL,
+    user_email TEXT NOT NULL
 );
 
-INSERT INTO users (name, email) VALUES ('Ron', 'ron@bar.com');
+INSERT INTO users (user_name, user_email) VALUES ('Ron', 'ron@bar.com');
 
-INSERT INTO users (name, email) VALUES ('Renee', 'renee@bar.com');
+INSERT INTO users (user_name, user_email) VALUES ('Renee', 'renee@bar.com');
