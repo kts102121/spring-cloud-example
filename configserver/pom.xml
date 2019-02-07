@@ -23,7 +23,7 @@
     </dependencyManagement>
 
     <groupId>org.ron</groupId>
-    <artifactId>config-server</artifactId>
+    <artifactId>configserver</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
