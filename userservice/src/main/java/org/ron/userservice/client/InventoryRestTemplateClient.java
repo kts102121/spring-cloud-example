@@ -20,7 +20,7 @@ public class InventoryRestTemplateClient {
     public List<Inventory> getInventory(Integer userId) {
         ResponseEntity<List<Inventory>> restExchange =
                 restTemplate.exchange(
-                        "http://inventoryservice/v1/inventory/{userId}",
+                        "http://gatewayservice/inventoryservice/v1/inventory/{userId}",
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<List<Inventory>>(){},
