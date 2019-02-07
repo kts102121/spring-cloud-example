@@ -24,6 +24,13 @@ curl localhost:8888/userservice/default
 curl localhost:8085/v1/user/1
 ```
 
+#### To call the API through API Gateway
+```bash
+curl localhost:8080/userservice/v1/user/1/inventory
+```
+This will call <code>/v1/user</code> with Path parameter <code>1</code> (user id).
+It will also check inventories added by this user and add them
+
 #### To docker-compose with different profiles
 ```bash
 docker-compose -f docker/dev/docker-compose.yml up
