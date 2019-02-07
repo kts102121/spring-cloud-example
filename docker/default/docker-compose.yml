@@ -30,6 +30,16 @@ services:
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
+  gatewayservice:
+    image: ron/gatewayservice:1.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      - PROFILE=default
+      - SERVER_PORT=8080
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+      - CONSUL_URL=${CONSUL_URL}
+      - CONSUL_PORT=${CONSUL_PORT}
   userservice:
     image: ron/userservice:1.0-SNAPSHOT
     ports:
