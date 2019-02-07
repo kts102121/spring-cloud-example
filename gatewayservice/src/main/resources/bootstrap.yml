@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: gatewayservice
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}
+        prefer-ip-address: true
+      host: ${CONSUL_URL:localhost}
+      port: ${CONSUL_PORT:8500}
+    gateway:
+      discovery:
+        locator:
+          enabled: true
