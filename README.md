@@ -52,7 +52,7 @@ This should give you
 {"userId":1,"userName":"Ron","userEmail":"ron@bar.com","inventories":[{"inventoryId":0,"inventoryName":"Something is wrong. Please try again later"}]}
 ```
 
-Try restart inventory service
+Try restart inventory service and curl again
 ```json
 {"userId":1,"userName":"Ron","userEmail":"ron@bar.com","inventories":[{"inventoryId":1,"inventoryName":"Oreo"}]}
 ```

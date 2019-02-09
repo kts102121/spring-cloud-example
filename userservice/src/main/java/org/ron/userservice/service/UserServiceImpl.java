@@ -55,12 +55,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private List<Inventory> getInventory(Integer userId) {
-//        return inventoryClient.getInventory(userId);
-
-
-        /*return CircuitBreaker.decorateSupplier(circuitBreaker,
-                () -> inventoryClient.getInventory(userId)).get();*/
-
         Supplier<List<Inventory>> remoteInventoryResponse = CircuitBreaker.decorateSupplier(circuitBreaker, () -> inventoryClient.getInventory(userId));
 
         return Try.ofSupplier(remoteInventoryResponse)
