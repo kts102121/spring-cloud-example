@@ -11,16 +11,11 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class UserServiceApplication extends SpringBootServletInitializer {
+public class UserServiceApplication {
     @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(UserServiceApplication.class);
     }
 
     public static void main(String[] args) {
