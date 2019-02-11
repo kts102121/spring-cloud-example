@@ -19,6 +19,7 @@
         <module>userservice</module>
         <module>inventoryservice</module>
         <module>gatewayservice</module>
+        <module>authservice</module>
     </modules>
 
     <build>
