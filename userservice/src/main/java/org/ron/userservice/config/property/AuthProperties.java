@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
-@ConfigurationProperties("example")
-public class ExampleProperties {
-    private String property;
+@ConfigurationProperties("signing")
+public class AuthProperties {
+    private String key;
 }

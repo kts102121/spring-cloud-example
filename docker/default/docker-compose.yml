@@ -14,7 +14,7 @@ services:
   database:
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5432"
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -22,7 +22,7 @@ services:
   configserver:
     image: ron/configserver:1.0-SNAPSHOT
     ports:
-      - "8888:8888"
+      - "8888"
     environment:
       - GIT_URL=${GIT_URL}
       - GIT_CREDENTIALS_USERNAME=${GIT_CREDENTIALS_USERNAME}
@@ -43,7 +43,7 @@ services:
   userservice:
     image: ron/userservice:1.0-SNAPSHOT
     ports:
-      - "8085:8085"
+      - "8085"
     environment:
       - PROFILE=default
       - ENCRYPT_KEY=${ENCRYPT_KEY}
@@ -56,7 +56,7 @@ services:
   inventoryservice:
     image: ron/inventoryservice:1.0-SNAPSHOT
     ports:
-      - "8086:8086"
+      - "8086"
     environment:
       - PROFILE=default
       - ENCRYPT_KEY=${ENCRYPT_KEY}
@@ -66,3 +66,17 @@ services:
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
+  authservice:
+    image: ron/authservice:1.0-SNAPSHOT
+    ports:
+      - "8901"
+    environment:
+      - PROFILE=default
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+      - CONSUL_URL=${CONSUL_URL}
+      - CONSUL_PORT=${CONSUL_PORT}
+      - SERVER_PORT=8901
+      - CONFIG_URL=${CONFIG_URL}
+      - CONFIG_PORT=${CONFIG_PORT}
+      - DB_PORT=${DB_PORT}
+      - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}

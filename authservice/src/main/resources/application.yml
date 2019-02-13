@@ -1,3 +1,1 @@
-server:
-  servlet:
-    contextPath: /auth
+management.endpoints.web.exposure.include: "health,refresh"
