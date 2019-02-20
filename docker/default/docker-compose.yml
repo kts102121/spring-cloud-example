@@ -14,11 +14,36 @@ services:
   database:
     image: postgres:latest
     ports:
-      - "5432"
+      - "5432:5432"
+    volumes:
+      - /tmp/postgresql:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 2181
+  kafkaserver:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper:zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
   configserver:
     image: ron/configserver:1.0-SNAPSHOT
     ports:
