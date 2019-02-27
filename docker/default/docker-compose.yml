@@ -78,6 +78,8 @@ services:
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
+      - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
+      - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
   inventoryservice:
     image: ron/inventoryservice:1.0-SNAPSHOT
     ports:
@@ -91,6 +93,8 @@ services:
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
+      - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
+      - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
   authservice:
     image: ron/authservice:1.0-SNAPSHOT
     ports:
@@ -105,3 +109,4 @@ services:
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
+      - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}

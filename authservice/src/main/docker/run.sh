@@ -23,7 +23,7 @@ while ! `nc -z configserver $CONFIG_PORT`; do sleep 3; done
 echo "*******  Configuration Server has started"
 
 echo "********************************************************"
-echo "Starting User Service  "
+echo "Starting Auth Service  "
 echo "********************************************************"
 java -cp app:app/lib/* -Djava.security.egd=file:/dev/./urandom \
      -Dserver.port=$SERVER_PORT \
