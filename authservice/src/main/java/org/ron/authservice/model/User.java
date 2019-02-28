@@ -27,8 +27,6 @@ public class User {
     private UserContact contacts;
 
     public String exists(User existingUser) {
-        System.out.println("user: " + this.toString() + ", existingUser: " + existingUser.toString());
-
         if (this.contacts.getEmail().equals(existingUser.getContacts().getEmail()) && !this.username.equals(existingUser.getUsername())) {
             throw new UserDetailsException("email already exists");
         } else if (!this.contacts.getEmail().equals(existingUser.getContacts().getEmail()) && this.username.equals(existingUser.getUsername())) {

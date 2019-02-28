@@ -9,6 +9,8 @@ import org.ron.authservice.model.User;
 import org.ron.authservice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -18,13 +20,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) throws UserDetailsException {
-        User existingUser = userRepository.findByUsernameOrContacts_Email(user.getUsername(), user.getContacts().getEmail());
+        Optional<User> existingUser = userRepository.findByUsernameOrContacts_Email(user.getUsername(), user.getContacts().getEmail());
 
-        log.info("user: {}", gson.toJson(user, new TypeToken<User>(){}.getType()));
-        log.info("existingUser: {}", gson.toJson(existingUser, new TypeToken<User>(){}.getType()));
-        if (existingUser != null) {
-            user.exists(existingUser);
-        }
+        log.info("user: {}", user.toString());
+        log.info("existingUser: {}", existingUser.toString());
+        existingUser.ifPresent(user::exists);
 
         userRepository.save(user);
     }
