@@ -1,6 +1,7 @@
-package org.ron.authservice.exception;
+package org.ron.userservice.exception.handler;
 
-import org.ron.authservice.exception.model.ErrorResponse;
+import org.ron.userservice.exception.model.ErrorResponse;
+import org.ron.userservice.exception.model.UserDetailsException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

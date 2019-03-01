@@ -5,6 +5,15 @@ spring:
     active:
       default
   cloud:
+    stream:
+      bindings:
+        inboundUserChanges:
+          destination: userChangeTopic
+          content-type: application/json
+          group: userGroup
+      kafka:
+        binder:
+          brokers: ${KAKFA_URL:localhost}
     consul:
       discovery:
         instance-id: ${spring.application.name}

@@ -6,4 +6,6 @@ public interface UserService {
     User getUser(Integer userId);
 
     User getInventoryByUser(Integer userId);
+
+    void saveUser(User user);
 }

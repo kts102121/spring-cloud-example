@@ -28,5 +28,6 @@ echo "********************************************************"
 java -cp app:app/lib/* -Djava.security.egd=file:/dev/./urandom \
      -Dserver.port=$SERVER_PORT \
      -Dspring.cloud.config.uri=$CONFIG_URL \
+     -Dspring.cloud.stream.kafka.binder.brokers=$KAFKA_URL             \
      -Dspring.profiles.active=$PROFILE \
      org.ron.userservice.UserServiceApplication

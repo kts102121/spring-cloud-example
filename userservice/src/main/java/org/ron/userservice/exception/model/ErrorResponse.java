@@ -1,7 +1,6 @@
-package org.ron.authservice.exception.model;
+package org.ron.userservice.exception.model;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 

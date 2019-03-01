@@ -1,12 +1,25 @@
-logging.level.org.hibernate.type.descriptor.sql: trace
-logging.level.org.hibernate.sql: debug
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor:
+            sql: trace
 
-management.endpoints.web.exposure.include: "health,refresh"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,refresh"
 
 spring:
   jpa:
     hibernate:
-      ddl-auto=create: create
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
+
+encrypt:
+  key: ${ENCRYPT_KEY}

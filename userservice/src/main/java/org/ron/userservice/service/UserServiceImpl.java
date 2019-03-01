@@ -1,6 +1,5 @@
 package org.ron.userservice.service;
 
-import com.google.gson.Gson;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.circuitbreaker.autoconfigure.CircuitBreakerProperties;
@@ -11,6 +10,7 @@ import org.ron.userservice.model.Inventory;
 import org.ron.userservice.model.User;
 import org.ron.userservice.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-    private Gson gson;
     private final UserRepository userRepository;
     private final CircuitBreaker circuitBreaker;
     private final InventoryRestTemplateClient inventoryClient;
@@ -52,6 +51,16 @@ public class UserServiceImpl implements UserService {
         user.get().setInventories(inventories);
 
         return user.get();
+    }
+
+    @Override
+    @Transactional
+    public void saveUser(User user) {
+        Optional<User> existingUser = userRepository.findByUsernameOrContacts_Email(user.getUsername(), user.getContacts().getEmail());
+
+        existingUser.ifPresent(user::exists);
+
+        userRepository.save(user);
     }
 
     private List<Inventory> getInventory(Integer userId) {

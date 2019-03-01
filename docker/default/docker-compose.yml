@@ -71,13 +71,15 @@ services:
       - "8085"
     environment:
       - PROFILE=default
+      - SERVER_PORT=8085
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
-      - SERVER_PORT=8085
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
+      - KAFKA_URL=${KAFKA_URL}
+      - KAFKA_PORT=${KAFKA_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
       - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
   inventoryservice:
@@ -86,13 +88,15 @@ services:
       - "8086"
     environment:
       - PROFILE=default
+      - SERVER_PORT=8086
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
-      - SERVER_PORT=8086
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
+      - KAFKA_URL=${KAFKA_URL}
+      - KAFKA_PORT=${KAFKA_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
       - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
   authservice:
@@ -101,12 +105,14 @@ services:
       - "8901"
     environment:
       - PROFILE=default
+      - SERVER_PORT=8901
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - CONSUL_URL=${CONSUL_URL}
       - CONSUL_PORT=${CONSUL_PORT}
-      - SERVER_PORT=8901
       - CONFIG_URL=${CONFIG_URL}
       - CONFIG_PORT=${CONFIG_PORT}
       - DB_PORT=${DB_PORT}
+      - KAFKA_URL=${KAFKA_URL}
+      - KAFKA_PORT=${KAFKA_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
       - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}

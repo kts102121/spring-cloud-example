@@ -1,1 +1,22 @@
-management.endpoints.web.exposure.include: "health,refresh"
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor:
+            sql: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,refresh"
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
