@@ -1,6 +1,6 @@
 package org.ron.authservice.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +21,6 @@ public class UserRole {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "credential_id")
+    @JsonIgnore
     private UserCredential credential;
 }

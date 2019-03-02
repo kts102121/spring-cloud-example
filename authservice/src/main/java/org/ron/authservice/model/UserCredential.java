@@ -1,17 +1,13 @@
 package org.ron.authservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 import org.ron.authservice.exception.UserDetailsException;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
-@Getter
 @Entity
 public class UserCredential {
     @Id
@@ -26,6 +22,27 @@ public class UserCredential {
 
     @OneToMany(mappedBy = "credential", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private Set<UserRole> roles = new HashSet<>();
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonInclude
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void exists(UserCredential existingUserCredential) {
         if (this.username.equals(existingUserCredential.getUsername())) {
