@@ -56,11 +56,22 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+/*        Optional<UserCredential> existingUserCredential = userCredentialRepository.findByUsername(user.getUsername());
+
+        existingUserCredential.ifPresent(user.getCredentials()::exists);
+
+        UserCredential credential = user.getCredentials();
+        credential.setUsername(user.getUsername());
+        credential.setPassword(passwordEncoder.encode(user.getCredentials().getPassword()));
+        credential.getRoles().forEach(role -> {
+            role.setUsername(user.getUsername());
+            credential.addRole(role);
+        });
+
+        userCredentialRepository.save(credential);*/
         Optional<User> existingUser = userRepository.findByUsernameOrContacts_Email(user.getUsername(), user.getContacts().getEmail());
-
         existingUser.ifPresent(user::exists);
-
-        userRepository.save(user);
+        userRepository.save(user.publish());
     }
 
     private List<Inventory> getInventory(Integer userId) {

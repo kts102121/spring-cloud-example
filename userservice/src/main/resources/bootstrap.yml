@@ -7,10 +7,9 @@ spring:
   cloud:
     stream:
       bindings:
-        inboundUserChanges:
+        output:
           destination: userChangeTopic
           content-type: application/json
-          group: userGroup
       kafka:
         binder:
           brokers: ${KAKFA_URL:localhost}

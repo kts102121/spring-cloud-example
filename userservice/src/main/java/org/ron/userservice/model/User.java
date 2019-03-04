@@ -2,7 +2,9 @@ package org.ron.userservice.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.ron.userservice.event.UserCreatedEvent;
 import org.ron.userservice.exception.model.UserDetailsException;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,14 +13,20 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name = "Account")
-public class User implements Serializable {
+public class User extends AbstractAggregateRoot<User> implements Serializable {
 
     @Id
-    @Column(name = "username", nullable = false)
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @Embedded
     private UserContact contacts;
+
+    @Transient
+    private UserCredential credentials;
 
     @Transient
     private List<Inventory> inventories;
@@ -31,5 +39,11 @@ public class User implements Serializable {
         } else {
             throw new UserDetailsException("invalid username and email address");
         }
+    }
+
+    public User publish() {
+        this.registerEvent(new UserCreatedEvent(this));
+
+        return this;
     }
 }

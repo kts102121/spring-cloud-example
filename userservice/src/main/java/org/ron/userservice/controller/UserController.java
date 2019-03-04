@@ -5,10 +5,7 @@ import org.ron.userservice.client.InventoryRestTemplateClient;
 import org.ron.userservice.model.User;
 import org.ron.userservice.service.UserService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +21,10 @@ public class UserController {
     @GetMapping(value = {"{id}/inventory"})
     public User getInventryByUser(@PathVariable("id") Integer userId) {
         return userService.getInventoryByUser(userId);
+    }
+
+    @PostMapping
+    public void saveUser(final @RequestBody User user) {
+        userService.saveUser(user);
     }
 }

@@ -1,6 +1,8 @@
 logging:
   level:
     org:
+      apache:
+        kafka: DEBUG
       hibernate:
         sql: debug
         type:
