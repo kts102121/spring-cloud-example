@@ -3,6 +3,7 @@ package org.ron.authservice.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ron.authservice.exception.UserDetailsException;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
 import java.util.HashSet;

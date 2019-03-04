@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    private Long id;
+
     private String username;
-    private UserContact contacts;
+
     private UserCredential credentials;
 }
-
