@@ -13,8 +13,49 @@ I am trying to change:
 4. docker-compose -> kubernetes
 
 ## How to run
+
+##### Create .env
+```text
+GIT_URL={your config github repository}
+GIT_CREDENTIALS_USERNAME={user username}
+GIT_CREDENTIALS_PASSWORD={cipher}{config server encrypted keys}
+ENCRYPT_KEY={your key to encrypt and decrypt sensitive information. e.g. avery$ecretkey} 
+CONSUL_URL=http://consulserver
+CONSUL_PORT=8500
+CONFIG_URL=http://configserver:8888
+CONFIG_PORT=8888
+DB_USER={DB username}
+DB_PASSWORD={DB password}
+ENCRYPTED_DB_PASS={cipher}{encrypted db password}
+DB_NAME=kydy
+DB_PORT=5432
+KAFKA_URL=kafkaserver
+KAFKA_PORT=9092
+JWT_SIGNING_KEY={jwt signing key. e.g avery$secretjwtkey}
+```
+
+##### Create config repo
+please make config files for auth, user, and inventory services. For example:
+```yml
+spring.jpa.database: "POSTGRESQL"
+spring.datasource.platform:  "postgres"
+spring.jpa.show-sql: "true"
+spring.database.driverClassName: "org.postgresql.Driver"
+spring.datasource.url: "jdbc:postgresql://database:5432/example"
+spring.datasource.username: "root"
+spring.datasource.password: ${ENCRYPTED_DB_PASS}
+spring.datasource.testWhileIdle: "true"
+spring.datasource.validationQuery: "SELECT 1"
+spring.jpa.properties.hibernate.dialect: "org.hibernate.dialect.PostgreSQLDialect"
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: "true"
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: "false"
+spring.jpa.hibernate.ddl-auto: "create-drop"
+signing.key: ${JWT_SIGNING_KEY}
+```
+Place the above file under authservice, userservice and inventoryservice in that repo
+(create different folders each)
+
 ```bash
-mkdir -p /tmp/consul
 git clone https://github.com/kts102121/spring-cloud.git
 cd spring-cloud
 mvn clean package dockerfile:build
@@ -30,32 +71,29 @@ To see if the configuration variables are correctly injected for **userservice/u
 curl localhost:8888/userservice/default
 ```
 
-#### Test if service containers are running
+#### Test login
 ```bash
-curl localhost:8085/v1/user/1
+curl -vv -X POST -H 'Expect:' -u eagleeye:thisissecret -F 'username=kts1021' -F 'password=helloworld' -F 'scope=webclient' -F 'grant_type=password' localhost:8080/authservice/oauth/token
 ```
 
-#### To call the API through API Gateway
-```bash
-curl localhost:8080/userservice/v1/user/1/inventory
-```
-This will call <code>/v1/user</code> with Path parameter <code>1</code> (user id).
-It will also check inventories added by this user and add them
-
-#### How to test fallback
-```bash
-docker stop [inventory service container id]
-curl localhost:8080/userservice/v1/user/1/inventory
-```
-This should give you 
+successful login returns
 ```json
-{"userId":1,"userName":"Ron","userEmail":"ron@bar.com","inventories":[{"inventoryId":0,"inventoryName":"Something is wrong. Please try again later"}]}
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTE3NDE3NjYsInVzZXJfbmFtZSI6Imt0czEwMjEiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiMmI3MGJlNjItMmY3Ni00NTNhLTk0NWUtZDFjNTJhZTBiMWZkIiwiY2xpZW50X2lkIjoiZWFnbGVleWUiLCJzY29wZSI6WyJ3ZWJjbGllbnQiXX0.T86KWCcyjcWcxJy3fj0EBcsXx6256dvly8azARUqkw0",
+    "token_type": "bearer",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJrdHMxMDIxIiwic2NvcGUiOlsid2ViY2xpZW50Il0sImF0aSI6IjJiNzBiZTYyLTJmNzYtNDUzYS05NDVlLWQxYzUyYWUwYjFmZCIsImV4cCI6MTU1NDI5MDU2NiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6ImQzY2ZkMTNiLWY1NmMtNDU1YS05ZmZhLWQ5MzgzOWRkNTdiNiIsImNsaWVudF9pZCI6ImVhZ2xlZXllIn0.KjB40OiPF-s04mYfgT5UmxTQwOUsbPMobzEd8TjcFI0",
+    "expires_in": 43199,
+    "scope": "webclient",
+    "jti": "2b70be62-2f76-453a-945e-d1c52ae0b1fd"
+}
 ```
 
-Try restart inventory service and curl again
-```json
-{"userId":1,"userName":"Ron","userEmail":"ron@bar.com","inventories":[{"inventoryId":1,"inventoryName":"Oreo"}]}
+#### Test user signup
+```bash
+curl --header "Content-Type: application/json" -X POST --data '{"username":"kts102111","contacts":{"email":"kts1021@naver.c1om","countryCode":"82","phoneNumber":"01032247577"},"credentials":{"password":"test","roles":[{"role": "ROLE_USER"}]}}' http://localhost:8080/userservice/v1/user
 ```
+
+Successful signup returns 200
 
 #### To docker-compose with different profiles
 ```bash
