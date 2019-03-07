@@ -3,13 +3,13 @@ package org.ron.authservice.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ron.authservice.exception.UserDetailsException;
-import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(indexes = {@Index(name = "IDX_USERNAME", columnList = "username")})
 public class UserCredential {
     @Id
     @GeneratedValue
