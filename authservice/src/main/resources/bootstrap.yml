@@ -4,6 +4,11 @@ spring:
   profiles:
     active:
       default
+  zipkin:
+    base-url: ${ZIPKIN_URI:localhost:9411}
+  sleuth:
+    sampler:
+      probability: 1.0
   cloud:
     stream:
       bindings:

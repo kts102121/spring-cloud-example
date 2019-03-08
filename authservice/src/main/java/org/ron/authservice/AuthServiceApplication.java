@@ -1,5 +1,6 @@
 package org.ron.authservice;
 
+import brave.sampler.Sampler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableBinding(Sink.class)
 public class AuthServiceApplication {
+
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
+    }
+
     @Bean
     public Gson gson() {
         return new GsonBuilder().setPrettyPrinting().create();

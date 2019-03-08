@@ -1,5 +1,6 @@
 package org.ron.userservice;
 
+import brave.sampler.Sampler;
 import org.ron.userservice.event.handler.UserEventListener;
 import org.ron.userservice.utils.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,11 @@ import java.util.List;
 @EnableResourceServer
 @EnableBinding(Source.class)
 public class UserServiceApplication {
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
+    }
+
     @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {

@@ -4,6 +4,8 @@ spring:
   profiles:
     active:
       default
+  zipkin:
+    base-url: ${ZIPKIN_URI:localhost:9411}
   cloud:
     stream:
       bindings:
