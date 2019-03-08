@@ -82,6 +82,7 @@ services:
       - KAFKA_PORT=${KAFKA_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
       - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
+      - ZIPKIN_URI=${ZIPKIN_URI}
   inventoryservice:
     image: ron/inventoryservice:1.0-SNAPSHOT
     ports:
@@ -99,6 +100,7 @@ services:
       - KAFKA_PORT=${KAFKA_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
       - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
+      - ZIPKIN_URI=${ZIPKIN_URI}
   authservice:
     image: ron/authservice:1.0-SNAPSHOT
     ports:
@@ -116,3 +118,15 @@ services:
       - KAFKA_PORT=${KAFKA_PORT}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
       - ENCRYPTED_DB_PASS=${ENCRYPTED_DB_PASS}
+      - ZIPKIN_URI=${ZIPKIN_URI}
+  #  This is the openzipkin server.
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+  #Attention:  Replace the value in the “command” attribute with the value supplied to you from Papertrail
+  logspout:
+    image: gliderlabs/logspout
+    command: ${PAPERTRAIL_APIKEY}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
