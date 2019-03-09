@@ -33,6 +33,7 @@ KAFKA_URL=kafkaserver
 KAFKA_PORT=9092
 JWT_SIGNING_KEY={jwt signing key. e.g avery$secretjwtkey}
 ```
+Please create this file under your project root
 
 ##### Create config repo
 please make config files for auth, user, and inventory services. For example:
