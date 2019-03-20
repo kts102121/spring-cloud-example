@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public User getUser(@PathVariable("id") Integer userId) {
-        return userService.getUser(userId);
+    @GetMapping(value = "{username}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User getUser(@PathVariable("username") String username) {
+        return userService.getUser(username);
     }
 
     @GetMapping(value = {"{id}/inventory"})

@@ -43,11 +43,11 @@ public class UserCredentialRepositoryTest {
     }
 
     @Test
-    public void crud() {
-        Optional<UserCredential> selectedUserCredential = userCredentialRepository.findByUsername("test1");// <- without this, hibernate will not INSERT the data since they are not flushed yet
+    public void crud() throws Exception {
+        UserCredential selectedUserCredential = userCredentialRepository.findByUsername("test1").orElseThrow(() -> new Exception(""));// <- without this, hibernate will not INSERT the data since they are not flushed yet
 
-        assertThat(passwordEncoder.matches("testtest", selectedUserCredential.get().getPassword())).isTrue();
-        assertThat(selectedUserCredential.get().getUsername()).isEqualTo("test1");
-        assertThat(selectedUserCredential.get().getRoles()).isNotEmpty();
+        assertThat(passwordEncoder.matches("testtest", selectedUserCredential.getPassword())).isTrue();
+        assertThat(selectedUserCredential.getUsername()).isEqualTo("test1");
+        assertThat(selectedUserCredential.getRoles()).isNotEmpty();
     }
 }
