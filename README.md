@@ -72,9 +72,16 @@ To see if the configuration variables are correctly injected for **userservice/u
 curl localhost:8888/userservice/default
 ```
 
+#### Test user signup
+```bash
+curl --header "Content-Type: application/json" -X POST --data '{"username":"kts102111","contacts":{"email":"foo@bar.com","countryCode":"82","phoneNumber":"01000000000"},"credentials":{"password":"test","roles":[{"role": "ROLE_USER"}]}}' http://localhost:8080/userservice/v1/user
+```
+
+Successful signup returns 200
+
 #### Test login
 ```bash
-curl -vv -X POST -H 'Expect:' -u eagleeye:thisissecret -F 'username=kts1021' -F 'password=helloworld' -F 'scope=webclient' -F 'grant_type=password' localhost:8080/authservice/oauth/token
+curl -vv -X POST -H 'Expect:' -u eagleeye:thisissecret -F 'username=kts102111' -F 'password=test' -F 'scope=webclient' -F 'grant_type=password' localhost:8080/authservice/oauth/token
 ```
 
 successful login returns
@@ -88,13 +95,6 @@ successful login returns
     "jti": "2b70be62-2f76-453a-945e-d1c52ae0b1fd"
 }
 ```
-
-#### Test user signup
-```bash
-curl --header "Content-Type: application/json" -X POST --data '{"username":"kts102111","contacts":{"email":"kts1021@naver.c1om","countryCode":"82","phoneNumber":"01032247577"},"credentials":{"password":"test","roles":[{"role": "ROLE_USER"}]}}' http://localhost:8080/userservice/v1/user
-```
-
-Successful signup returns 200
 
 #### To docker-compose with different profiles
 ```bash
