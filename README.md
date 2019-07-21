@@ -12,6 +12,8 @@ I am trying to change:
 3. [docker-maven-plugin by spotify](https://github.com/spotify/docker-maven-plugin) -> [dockerfile-maven-plugin](https://github.com/spotify/dockerfile-maven)
 4. docker-compose -> kubernetes
 
+It is to practice and learn how to implement micro services with docker containers, and possibly deploy them on k8s clusters.
+
 ## How to run
 
 ##### Create .env
